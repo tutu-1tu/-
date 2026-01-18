@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能问答系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- 背景装饰元素 -->
+    <div class="anime-decorations">
+        <div class="floating-cat cat-1">🐱</div>
+        <div class="floating-cat cat-2">✨</div>
+        <div class="floating-cat cat-3">⭐</div>
+        <div class="floating-cat cat-4">💫</div>
+        <div class="floating-cat cat-5">🌟</div>
+        <div class="floating-cat cat-6">💖</div>
+        <div class="floating-cat cat-7">🐾</div>
+        <div class="floating-cat cat-8">🌸</div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="{{ url_for('static', filename='images/cat-icon.svg') }}" alt="智能助手" class="header-icon" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                <span class="header-icon-fallback" style="display:none;">🐱</span>
+                <div class="header-text">
+                    <h1>多功能智能问答系统</h1>
+                    <p class="subtitle">集成豆包API、文本分类、情感分析、机器翻译等功能</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-wrapper">
+            <!-- 左侧功能选择标签 -->
+            <div class="sidebar">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="chat">💬 智能问答</button>
+                    <button class="tab-btn" data-tab="classify">📝 文本分类</button>
+                    <button class="tab-btn" data-tab="sentiment">😊 情感分析</button>
+                    <button class="tab-btn" data-tab="translate">🌐 机器翻译</button>
+                    <button class="tab-btn" data-tab="creative">✨ 创意功能</button>
+                </div>
+            </div>
+
+            <!-- 右侧主内容区域 -->
+            <div class="main-content">
+                <!-- 智能问答面板 -->
+            <div class="tab-content active" id="chat">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message system cat-message">
+                            <div class="cat-ears">
+                                <span class="ear-left">🐱</span>
+                                <span class="ear-right">🐱</span>
+                            </div>
+                            <p>👋 欢迎使用哈基米智能问答系统！我是您的AI助手，可以回答各种问题。请随时向我提问！</p>
+                            <div class="cat-tail">🐾</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="input-wrapper">
+                            <span class="cat-emoji-input">🐱</span>
+                            <textarea id="chatInput" placeholder="输入您的问题..."></textarea>
+                        </div>
+                        <button id="sendBtn" class="btn-send">发送 🐾</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文本分类面板 -->
+            <div class="tab-content" id="classify">
+                <div class="feature-panel">
+                    <h3>文本分类</h3>
+                    <p>将文本分类到以下类别：体育、财经、房产、家居、教育、科技、时尚、时政、游戏、娱乐</p>
+                    <textarea id="classifyInput" placeholder="输入要分类的文本..."></textarea>
+                    <button class="btn-primary" onclick="classifyText()">分类</button>
+                    <div id="classifyResult" class="result-box"></div>
+                </div>
+            </div>
+
+            <!-- 情感分析面板 -->
+            <div class="tab-content" id="sentiment">
+                <div class="feature-panel">
+                    <h3>情感分析</h3>
+                    <p>分析文本的情感倾向（正面/负面）</p>
+                    <textarea id="sentimentInput" placeholder="输入要分析的文本..."></textarea>
+                    <button class="btn-primary" onclick="analyzeSentiment()">分析</button>
+                    <div id="sentimentResult" class="result-box"></div>
+                </div>
+            </div>
+
+            <!-- 机器翻译面板 -->
+            <div class="tab-content" id="translate">
+                <div class="feature-panel">
+                    <h3>机器翻译</h3>
+                    <p>支持中英文互译</p>
+                    <div class="translate-controls">
+                        <label>
+                            <input type="radio" name="direction" value="zh2en" checked> 中文 → 英文
+                        </label>
+                        <label>
+                            <input type="radio" name="direction" value="en2zh"> 英文 → 中文
+                        </label>
+                    </div>
+                    <textarea id="translateInput" placeholder="输入要翻译的文本..."></textarea>
+                    <button class="btn-primary" onclick="translateText()">翻译</button>
+                    <div id="translateResult" class="result-box"></div>
+                </div>
+            </div>
+
+            <!-- 创意功能面板 -->
+            <div class="tab-content" id="creative">
+                <div class="feature-panel">
+                    <h3>创意功能</h3>
+                    <div class="creative-buttons">
+                        <button class="btn-secondary" onclick="extractKeywords()">🔑 提取关键词</button>
+                        <button class="btn-secondary" onclick="generateSummary()">📄 文本摘要</button>
+                        <button class="btn-secondary" onclick="wordFrequency()">📊 词频统计</button>
+                        <button class="btn-secondary" onclick="textStatistics()">📈 文本统计</button>
+                        <button class="btn-secondary" onclick="detectLanguage()">🌍 语言检测</button>
+                    </div>
+                    <textarea id="creativeInput" placeholder="输入文本以使用创意功能..."></textarea>
+                    <div id="creativeResult" class="result-box"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>系统状态: <span id="systemStatus">检查中...</span></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+
